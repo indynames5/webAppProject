@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
+    <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
+    <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
+    <script src="https://unpkg.com/jquery/dist/jquery.min.js"></script>
+    <!-- <link href="https://fonts.googleapis.com/css?family=Noto+Sans&display=swap" rel="stylesheet"> -->
+    <style>
+        #mypage .page__background {
+            background: url('img/bg.jpg');
+            background-repeat: no-repeat;
+
+        }
+
+        ons-input {
+            width: 90% ;
+        }
+        .login{
+            
+            width: 90%;
+        }
+        ons-card{
+            margin: 30px auto;
+        }
+        .another{
+            
+            margin:5px;
+            width:90%;
+        }
+        
+    </style>
+</head>
+
+<body>
+    <ons-page id='mypage'>
+        <ons-card style=" margin-top: 50%" >
+            <div style="text-align: center; ">
+                    <p>
+                            <i class="fas fa-utensils fa-3x" style="color:orange"></i>
+                            </p>
+                <label style="font-size:30px; margin-top:6px; margin-bottom: 6px;">Login</label>
+                <p>
+                    <ons-input id="username" placeholder="Username" modifier="underbar"></ons-input>
+                </p>
+
+                <p>
+                    <ons-input id="password" placeholder="Password" type="password" modifier="underbar">
+                    </ons-input>
+                </p>
+
+                <p>
+                        <ons-button class="login"onclick="window.location.href = 'category.html';" style="background-color: orange">Sign in</ons-button>
+                    </p>
+                    <p>
+                            <ons-button class="another" onclick="window.location.href = 'category.html';" style="margin-top:30px; background-color: red;">Gmail</ons-button>
+
+                            
+                            
+                        </p>
+                            
+            </div>
+
+            
+        </ons-card>
+    </ons-page>
+
+
+</body>
+
+</html>
