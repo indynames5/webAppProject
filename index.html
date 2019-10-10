@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
     <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
@@ -14,31 +15,33 @@
         }
 
         ons-input {
-            width: 90% ;
-        }
-        .login{
-            
             width: 90%;
         }
-        ons-card{
+
+        .login {
+
+            width: 90%;
+        }
+
+        ons-card {
             margin: 30px auto;
         }
-        .another{
-            
-            margin:5px;
-            width:90%;
+
+        .another {
+
+            margin: 5px;
+            width: 90%;
         }
-        
     </style>
 </head>
 
 <body>
     <ons-page id='mypage'>
-        <ons-card style=" margin-top: 50%" >
+        <ons-card style=" margin-top: 50%">
             <div style="text-align: center; ">
-                    <p>
-                            <i class="fas fa-utensils fa-3x" style="color:orange"></i>
-                            </p>
+                <p>
+                    <i class="fas fa-utensils fa-3x" style="color:orange"></i>
+                </p>
                 <label style="font-size:30px; margin-top:6px; margin-bottom: 6px;">Login</label>
                 <p>
                     <ons-input id="username" placeholder="Username" modifier="underbar"></ons-input>
@@ -50,22 +53,46 @@
                 </p>
 
                 <p>
-                        <ons-button class="login"onclick="window.location.href = 'category.html';" style="background-color: orange">Sign in</ons-button>
-                    </p>
-                    <p>
-                            <ons-button class="another" onclick="window.location.href = 'category.html';" style="margin-top:30px; background-color: red;">Gmail</ons-button>
+                    <ons-button class="login" onclick="window.location.href = 'category.html';"
+                        style="background-color: orange">Sign in</ons-button>
+                </p>
+                <p>
+                    <ons-button class="another" onclick="window.location.href = 'category.html';"
+                        style="margin-top:30px; background-color: red;">Gmail</ons-button>
 
-                            
-                            
-                        </p>
-                            
+
+
+                </p>
+
             </div>
 
-            
+
         </ons-card>
     </ons-page>
 
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.1.0/firebase-app.js"></script>
 
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.1.0/firebase-analytics.js"></script>
+
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyCNN0Uge5RExAFY9aZyQdQA4l51-DOEY4w",
+            authDomain: "webappproject-83551.firebaseapp.com",
+            databaseURL: "https://webappproject-83551.firebaseio.com",
+            projectId: "webappproject-83551",
+            storageBucket: "webappproject-83551.appspot.com",
+            messagingSenderId: "33919573347",
+            appId: "1:33919573347:web:b0b3f85e65ba410f048756",
+            measurementId: "G-CSQ7Y9PQV0"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        firebase.analytics();
+    </script>
 </body>
 
 </html>
