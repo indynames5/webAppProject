@@ -41,7 +41,7 @@
         <ons-card style=" margin-top: 38%">
             <div style="text-align: center; ">
                 <p>
-                <i class="fas fa-utensils fa-3x" style="color:orange"></i>
+                    <i class="fas fa-utensils fa-3x" style="color:orange"></i>
                 </p>
                 <label style="font-size:30px; margin-top:6px; margin-bottom: 6px;">Register</label>
                 <p>
@@ -64,11 +64,13 @@
                 </p>
 
                 <p>
-                    <ons-button class="login" style="background-color: orange" onclick="window.location.href = 'index.html';">Register</ons-button>
+                    <ons-button class="login" style="background-color: orange"
+                        onclick="window.location.href = 'index.html';">Register</ons-button>
                 </p>
                 <p>
-                    <ons-button class="another" style="margin-top:30px; background-color: red;"onclick="window.location.href = 'index.html';">Gmail</ons-button>
-                   
+                    <ons-button class="another" style="margin-top:30px; background-color: red;"
+                        onclick="window.location.href = 'index.html';">Gmail</ons-button>
+
 
 
                 </p>
@@ -78,7 +80,31 @@
 
         </ons-card>
     </ons-page>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.1.0/firebase-app.js"></script>
 
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.1.0/firebase-analytics.js"></script>
+
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyCNN0Uge5RExAFY9aZyQdQA4l51-DOEY4w",
+            authDomain: "webappproject-83551.firebaseapp.com",
+            databaseURL: "https://webappproject-83551.firebaseio.com",
+            projectId: "webappproject-83551",
+            storageBucket: "webappproject-83551.appspot.com",
+            messagingSenderId: "33919573347",
+            appId: "1:33919573347:web:b0b3f85e65ba410f048756",
+            measurementId: "G-CSQ7Y9PQV0"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        firebase.analytics();
+
+    </script>
+    <script src="firebase.js"></script>
 
 </body>
 

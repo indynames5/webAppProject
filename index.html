@@ -57,7 +57,7 @@
                         style="background-color: orange">Sign in</ons-button>
                 </p>
                 <p>
-                    <ons-button class="another" onclick="window.location.href = 'category.html';"
+                    <ons-button class="another" onclick="signinGoogle()"
                         style="margin-top:30px; background-color: red;">Gmail</ons-button>
 
 
@@ -70,29 +70,12 @@
         </ons-card>
     </ons-page>
 
-    <!-- The core Firebase JS SDK is always required and must be listed first -->
-    <script src="https://www.gstatic.com/firebasejs/7.1.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-firestore.js"></script>
 
-    <!-- TODO: Add SDKs for Firebase products that you want to use
-     https://firebase.google.com/docs/web/setup#available-libraries -->
-    <script src="https://www.gstatic.com/firebasejs/7.1.0/firebase-analytics.js"></script>
-
-    <script>
-        // Your web app's Firebase configuration
-        var firebaseConfig = {
-            apiKey: "AIzaSyCNN0Uge5RExAFY9aZyQdQA4l51-DOEY4w",
-            authDomain: "webappproject-83551.firebaseapp.com",
-            databaseURL: "https://webappproject-83551.firebaseio.com",
-            projectId: "webappproject-83551",
-            storageBucket: "webappproject-83551.appspot.com",
-            messagingSenderId: "33919573347",
-            appId: "1:33919573347:web:b0b3f85e65ba410f048756",
-            measurementId: "G-CSQ7Y9PQV0"
-        };
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-        firebase.analytics();
-    </script>
+    <script src="firebase.js"></script>
 </body>
 
 </html>
