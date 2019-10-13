@@ -11,8 +11,8 @@ var firebaseConfig = {
   firebase.initializeApp(firebaseConfig);
   firebase.analytics();
 
+  //Google auth
   var provider = new firebase.auth.GoogleAuthProvider();
-  
   function signinGoogle() {
     firebase.auth().signInWithPopup(provider).then(function (result) {
         var token = result.credential.accessToken;
