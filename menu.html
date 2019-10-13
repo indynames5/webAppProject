@@ -1,39 +1,156 @@
-<ons-page id="menuPage">
+<!DOCTYPE html>
+<html>
 
-  <ons-list-title>Food247</ons-list-title>
-  <ons-list id="links">
-    <ons-list-item tappable style="cursor: pointer" modifier="longdivider chevron">
-      <div class="left">
-        <ons-icon icon="fa-home" style="color: grey;"></ons-icon>
-      </div>
-      <div class="center" id="home">
-        Home
-      </div>
-    </ons-list-item>
-    <ons-list-item tappable style="cursor: pointer" modifier="longdivider chevron">
-      <div class="left">
-        <ons-icon icon="fa-sign-in" style="color: grey;"></ons-icon>
-      </div>
-      <div class="center" id="login">
-        Sign in
-      </div>
-    </ons-list-item>
-    <ons-list-item tappable style="cursor: pointer" modifier="longdivider chevron">
-      <div class="left">
-        <ons-icon icon="fa-sign-out" style="color: grey;"></ons-icon>
-      </div>
-      <div class="center" id="logout">
-        Sign out
-      </div>
-    </ons-list-item>
-    <ons-list-item tappable style="cursor: pointer" modifier="longdivider chevron">
-      <div class="left">
-        <ons-icon icon="fa-file" style="color: grey;"></ons-icon>
-      </div>
-      <div class="center">
-        Settings
-      </div>
-    </ons-list-item>
-  </ons-list>
+<head>
+    <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
+    <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
+    <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
+    <script src="https://unpkg.com/jquery/dist/jquery.min.js"></script>
+    <style>
+        #home .page__background {
+            background: url('img/bg.jpg');
+            background-repeat: no-repeat;
 
-</ons-page>
+        }
+    </style>
+</head>
+
+<body>
+    <template id="menu.html">
+    <ons-page id="home">
+        <ons-toolbar style="background-color:purple;" modifier=" material transparent">
+            <div class="left">
+                <ons-toolbar-button id="menu_button"><i class="fas fa-angle-left" style="color:orange"></i>
+                </ons-toolbar-button>
+            </div>
+            <div class="center" style="color:orange"> Pizza Hut </div>
+        </ons-toolbar>
+
+
+        <ons-card style="margin-left:30px; margin-right: 30px; margin-top:15px; ">
+            <ons-row>
+
+                <img src="https://vignette.wikia.nocookie.net/logopedia/images/d/d3/Pizza_Hut_2010.png/revision/latest?cb=20190627174535"
+                    style="width: 100px;  display: block; margin-left:5px; ">
+                <ons-col>
+                    <div>
+                        <label style="margin-left:40px; font-weight: bold; font-size: 120%;">Pizza Hut </label>
+                    </div>
+
+                    <label style="font-weight: bold;"><i class="fas fa-star"
+                            style="color: orange; margin-left:40px; margin-top:5px;"></i> 4.5</label>
+                    <div style="margin-top:20px;">
+                        <label style="margin-left:40px; font-size: 80%; margin-top:10px; margin-bottom:0px;">
+                            min delivery : $35
+                        </label>
+                    </div>
+                    <p style="margin-left:40px; font-size: 80%; margin-top:8px;"><i class="fas fa-circle"
+                            style="color: green"></i>
+                        open
+                    </p>
+
+                </ons-col>
+
+            </ons-row>
+            <br>
+            <hr>
+            <ons-row>
+                <label style="width: 75%; padding-top:10px;">
+                    Hawaiian pizza
+                </label>
+                <label style="width: 12%; padding-top :10px;">
+                    $16
+                </label>
+                <ons-button style=" background-color: purple;"><i class="fas fa-plus fa-xs"
+                        style="color: aliceblue"></i>
+
+                </ons-button>
+            </ons-row>
+            <ons-row style="margin-top:4px;">
+                <label style="width: 75%; padding-top:10px;">
+                    Shimp Extreme
+                </label>
+                <label style="width: 12%; padding-top :10px;">
+                    $14
+                </label>
+                <ons-button style=" background-color: purple;"><i class="fas fa-plus fa-xs"
+                        style="color: aliceblue"></i>
+
+                </ons-button>
+            </ons-row>
+            <ons-row style="margin-top:4px;">
+                <label style="width: 75%; padding-top:10px;">
+                    New Orleans Deluxe
+                </label>
+                <label style="width: 12%; padding-top :10px;">
+                    $15
+                </label>
+                <ons-button style=" background-color: purple;"><i class="fas fa-plus fa-xs"
+                        style="color: aliceblue"></i>
+
+                </ons-button>
+            </ons-row>
+            <ons-row style="margin-top:4px;">
+                <label style="width: 75%; padding-top:10px;">
+                    Crazy Bacom
+                </label>
+                <label style="width: 12%; padding-top :10px;">
+                    $12
+                </label>
+                <ons-button style=" background-color: purple;"><i class="fas fa-plus fa-xs"
+                        style="color: aliceblue"></i>
+
+                </ons-button>
+            </ons-row>
+            <ons-row style="margin-top:4px;">
+                <label style="width: 75%; padding-top:10px;">
+                    Seafood Extreme
+                </label>
+                <label style="width: 12%; padding-top :10px;">
+                    $19
+                </label>
+                <ons-button style=" background-color: purple;"><i class="fas fa-plus fa-xs"
+                        style="color: aliceblue"></i>
+
+                </ons-button>
+            </ons-row>
+            <ons-row style="margin-top:4px;">
+                    <label style="width: 75%; padding-top:10px;">
+                        Mixed Deluxe
+                    </label>
+                    <label style="width: 12%; padding-top :10px;">
+                        $15
+                    </label>
+                    <ons-button style=" background-color: purple;"><i class="fas fa-plus fa-xs"
+                            style="color: aliceblue"></i>
+    
+                    </ons-button>
+                </ons-row>
+                <ons-row style="margin-top:15px;">
+                        
+                        <ons-button style=" background-color: darkblue; text-align: center; width: 98%;">
+                            Drink 
+                            <i class="fas fa-plus fa-xs" style="color: aliceblue"></i>
+        
+                        </ons-button>
+                    </ons-row>
+                    <ons-row style="margin-top:4px;">
+                        
+                            <ons-button style=" background-color: darkblue; text-align: center; width: 98%;">
+                                Dressert
+                                <i class="fas fa-plus fa-xs" style="color: aliceblue"></i>
+            
+                            </ons-button>
+                        </ons-row>
+        </ons-card>
+        <ons-bottom-toolbar style="text-align: center; color:white; padding-top:12px; background-color: black; font-size:15px;">
+            
+                Your Order : $34 <ons-button modifier="outline" style=" height: 30px; font-size:7px; padding-top :0px; padding-bottom: 0px;" onclick="window.location.href = 'confirm.html';"> Order </ons-button>
+              </ons-bottom-toolbar>
+
+    </ons-page>
+</template>
+
+</body>
+
+</html>
