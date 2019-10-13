@@ -27,3 +27,49 @@ var firebaseConfig = {
 
     });
 }
+
+document.addEventListener('init', function (event) {
+    var page = event.target;
+
+
+    if (page.id === 'homePage') {
+        console.log("homePage");
+
+        $("#menubtn").click(function () {
+            $("#sidemenu")[0].open();
+        });
+
+    }
+
+    if (page.id === 'menuPage') {
+        console.log("menuPage");
+
+        $("#login").click(function () {
+            $("#content")[0].load("login.html");
+            $("#sidemenu")[0].close();
+        });
+
+        $("#logout").click(function () {
+        });
+
+        $("#home").click(function () {
+            $("#content")[0].load("home.html");
+            $("#sidemenu")[0].close();
+        });
+    }
+
+    if (page.id === 'loginPage') {
+        console.log("loginPage");
+        $("#signinwithgoogle").click(function () {
+        });
+
+        $("#signinbtn").click(function () {
+
+        });
+        $("#backhomebtn").click(function () {
+            $("#content")[0].load("home.html");
+        });
+    }
+
+
+})

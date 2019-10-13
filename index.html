@@ -2,10 +2,12 @@
 <html>
 
 <head>
+
     <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
     <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
-    <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
     <script src="https://unpkg.com/jquery/dist/jquery.min.js"></script>
+    <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
+
     <style>
         #home .page__background {
             background: url('img/bg.jpg');
@@ -27,87 +29,25 @@
 </head>
 
 <body>
-    <ons-splitter>
-        <ons-splitter-side id="sidemenu" page="tools.html" swipeable width="250px" collapse swipe-target-width="50px">
-        </ons-splitter-side>
-        <ons-splitter-content id="content" page="category.html"></ons-splitter-content>
-    </ons-splitter>
+    <ons-navigator id="myNavigator" page="splitter.html">
+    </ons-navigator>
 
-    <template id="category.html">
-            <ons-page id="home">
-                <ons-toolbar style="background-color:purple;" modifier=" material transparent">
-                    <div class="left">
-                        <ons-toolbar-button id="menu_button"><i class="fas fa-times" style="color:orange"></i>
-                        </ons-toolbar-button>
-                    </div>
-                    <div class="center" style="color:orange"> Home </div>
-                </ons-toolbar>
-                <p style="text-align: center; margin-top: 15px;">
-                    <ons-search-input placeholder="Search" id="Search" modifier="material modifier2"></ons-search-input>
-                </p>
-        
-                <ons-row>
-                    <ons-card style=" margin-left:6%; margin-right:5%;width: 40%; height:auto;">
-                        <a href="list.html">
-                            <img src="https://cdn1.iconfinder.com/data/icons/gradak-food/32/food-08-512.png"
-                                style="width: 50%; margin-left: auto; margin-right: auto; display: block; ">
-                            <div style="text-align: center; margin-top: 16px; color:purple; font-weight: bold;">
-                                noodle </div>
-                        </a>
-                    </ons-card>
-                    <ons-card style=" margin-right:5%; width: 40%">
-                        <a href="list.html">
-                            <img src="https://cdn1.iconfinder.com/data/icons/restaurant-65/50/Restaurant_Outline-22-512.png"
-                                style="width: 50%; margin-left: auto; margin-right: auto; display: block; ">
-                            <div style="text-align: center; margin-top: 16px; color:purple; font-weight: bold;">
-                                burger </div>
-                        </a>
-                    </ons-card>
-                </ons-row>
-                <ons-row>
-                    <ons-card style=" margin-left:6%; margin-right:5%;width: 40%; height:auto;">
-                        <a href="list.html">
-                            <img src="https://cdn2.iconfinder.com/data/icons/food-102/24/_grill_steak-512.png"
-                                style="width: 50%; margin-left: auto; margin-right: auto; display: block; ">
-                            <div style="text-align: center; margin-top: 16px; color:purple; font-weight: bold;">
-                                steak </div>
-                        </a>
-                    </ons-card>
-                    <ons-card style=" margin-right:5%; width: 40%">
-                        <a href="list.html">
-                            <img src="https://cdn3.iconfinder.com/data/icons/kitchen-universe-4/140/34_sushi-512.png"
-                                style="width: 50%; margin-left: auto; margin-right: auto; display: block; ">
-                            <div style="text-align: center; margin-top: 16px; color:purple; font-weight: bold;">
-                                sushi </div>
-                        </a>
-                    </ons-card>
-                </ons-row>
-                <ons-row>
-                    <ons-card style=" margin-left:6%; margin-right:5%;width: 40%; height:auto;">
-                        <a href="list.html">
-                            <img src="https://cdn3.iconfinder.com/data/icons/yummicon-pro/100/068_Pizza-512.png"
-                                style="width: 50%; margin-left: auto; margin-right: auto; display: block; ">
-                            <div style="text-align: center; margin-top: 16px; color:purple; font-weight: bold;">
-                                pizza </div>
-                        </a>
-                    </ons-card>
-                    <ons-card style=" margin-right:5%; width: 40%">
-                        <a href="list.html">
-                            <img src="https://cdn3.iconfinder.com/data/icons/eldorado-stroke-food-1/40/salad-512.png"
-                                style="width: 50%; margin-left: auto; margin-right: auto; display: block; ">
-                            <div style="text-align: center; margin-top: 16px; color:purple; font-weight: bold;">
-                                salad </div>
-                        </a>
-                    </ons-card>
-        
-                </ons-row>
-        
-                <ons-button
-                    style="margin-top:15px; text-align: center; width:80%; height: 28px; font-size: 8px; margin-left: 37px; padding: 0px; background-color: purple; color:white">
-                    more...
-                </ons-button>
-            </ons-page>
-        </template>
+
+    <!-- Second navigation component: Splitter. This will disappear if the first component changes its content. -->
+    <template id="splitter.html">
+
+        <ons-page>
+            <ons-splitter id="mySplitter">
+                <ons-splitter-side id="sidemenu" page="tools.html" swipeable width="250px" collapse
+                    swipe-target-width="50px">
+                </ons-splitter-side>
+                <ons-splitter-content page="category.html" id="content">
+                </ons-splitter-content>
+            </ons-splitter>
+        </ons-page>
+
+    </template>
+
 </body>
 
 </html>
