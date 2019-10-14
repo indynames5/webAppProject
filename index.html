@@ -9,13 +9,31 @@
     <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
 
     <style>
-        #home .page__background {
+         .page__background {
             background: url('img/bg.jpg');
             background-repeat: no-repeat;
         }
+        
         #Search {
             background-color: aliceblue;
             width: 80%;
+        }
+        ons-input {
+            width: 90%;
+        }
+
+        .login {
+
+            width: 90%;
+        }
+
+        ons-card {
+            margin: 30px auto;
+        }
+
+        .another {
+            margin: 5px;
+            width: 90%;
         }
     </style>
 </head>
@@ -30,16 +48,24 @@
 
         <ons-page>
             <ons-splitter id="mySplitter">
-                <ons-splitter-side id="sidemenu" page="tools.html" swipeable width="250px" collapse
+                
+                <ons-splitter-side id="sidemenu" page="tools.html" width="300px;"swipeable width="250px" collapse
                     swipe-target-width="50px">
                 </ons-splitter-side>
-                <ons-splitter-content page="category.html" id="content">
+                <ons-splitter-content page="home.html" id="content">
                 </ons-splitter-content>
             </ons-splitter>
         </ons-page>
 
     </template>
+    <script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-firestore.js"></script>
 
+    <script src="app.js"></script>
+    
+    </script>
 </body>
 
 </html>

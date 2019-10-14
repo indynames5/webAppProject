@@ -1,184 +1,70 @@
-<ons-page id="homePage1">
-    <ons-toolbar>
-        <div class="left">
-            <!-- Toolbar-button with different icons depending on the platform. -->
-            <ons-toolbar-button id="menubtn">
-                <ons-icon icon="ion-navicon, material:md-menu" size="32px, material:24px"></ons-icon>
-            </ons-toolbar-button>
-        </div>
-        <div class="center">Food 247</div>
-        <div class="right">
-            <ons-toolbar-button>
-                <ons-icon icon="fa-user-circle"></ons-icon>
-            </ons-toolbar-button>
-        </div>
+<ons-page id="homePage">
+    <ons-toolbar style="background-color:purple;" modifier=" material transparent">
+            
+        <div class="center" style="color:orange"><i id="menubtn" class="fas fa-bars" style="color: orange; margin-right: 50px;"></i> Home</div>
     </ons-toolbar>
-    <p style="text-align: center; margin-top: 70px; margin-bottom: 10px;">
-        <ons-search-input placeholder="Food or Restuarant">
-        </ons-search-input>
+    <p style="text-align: center; margin-top: 15px;">
+        <ons-search-input placeholder="Search" id="Search" modifier="material modifier2"></ons-search-input>
     </p>
 
-    <div class="content" style="text-align: center;">
-        <div class="recomended">
-            <h4>Recomended</h4>
-            <ons-carousel id="carousel" auto-scroll auto-scroll-ratio="0.5" auto-refresh swipeable overscrollable item-width="130px"
-                class="recomended_list">
-                <ons-carousel-item modifier="nodivider" id="item1" class="recomended_item">
-                    <div class="thumbnail" style="background-image: url('images/thumb1.png')">
-                    </div>
-                    <div class="recomended_item_title" id="item1_name">Item 1</div>
-                </ons-carousel-item>
-                <ons-carousel-item modifier="nodivider" id="item1" class="recomended_item">
-                    <div class="thumbnail" style="background-image: url('images/thumb2.png')">
+    <ons-row>
+        <ons-card style=" margin-left:6%; margin-right:5%;width: 40%; height:auto;">
+            <a href="list.html">
+                <img src="https://cdn1.iconfinder.com/data/icons/gradak-food/32/food-08-512.png"
+                    style="width: 50%; margin-left: auto; margin-right: auto; display: block; ">
+                <div style="text-align: center; margin-top: 16px; color:purple; font-weight: bold;">
+                    noodle </div>
+            </a>
+        </ons-card>
+        <ons-card style=" margin-right:5%; width: 40%">
+            <a href="list.html">
+                <img src="https://cdn1.iconfinder.com/data/icons/restaurant-65/50/Restaurant_Outline-22-512.png"
+                    style="width: 50%; margin-left: auto; margin-right: auto; display: block; ">
+                <div style="text-align: center; margin-top: 16px; color:purple; font-weight: bold;">
+                    burger </div>
+            </a>
+        </ons-card>
+    </ons-row>
+    <ons-row>
+        <ons-card style=" margin-left:6%; margin-right:5%;width: 40%; height:auto;">
+            <a href="list.html">
+                <img src="https://cdn2.iconfinder.com/data/icons/food-102/24/_grill_steak-512.png"
+                    style="width: 50%; margin-left: auto; margin-right: auto; display: block; ">
+                <div style="text-align: center; margin-top: 16px; color:purple; font-weight: bold;">
+                    steak </div>
+            </a>
+        </ons-card>
+        <ons-card style=" margin-right:5%; width: 40%">
+            <a href="list.html">
+                <img src="https://cdn3.iconfinder.com/data/icons/kitchen-universe-4/140/34_sushi-512.png"
+                    style="width: 50%; margin-left: auto; margin-right: auto; display: block; ">
+                <div style="text-align: center; margin-top: 16px; color:purple; font-weight: bold;">
+                    sushi </div>
+            </a>
+        </ons-card>
+    </ons-row>
+    <ons-row>
+        <ons-card style=" margin-left:6%; margin-right:5%;width: 40%; height:auto;">
+            <a href="list.html">
+                <img src="https://cdn3.iconfinder.com/data/icons/yummicon-pro/100/068_Pizza-512.png"
+                    style="width: 50%; margin-left: auto; margin-right: auto; display: block; ">
+                <div style="text-align: center; margin-top: 16px; color:purple; font-weight: bold;">
+                    pizza </div>
+            </a>
+        </ons-card>
+        <ons-card style=" margin-right:5%; width: 40%">
+            <a href="list.html">
+                <img src="https://cdn3.iconfinder.com/data/icons/eldorado-stroke-food-1/40/salad-512.png"
+                    style="width: 50%; margin-left: auto; margin-right: auto; display: block; ">
+                <div style="text-align: center; margin-top: 16px; color:purple; font-weight: bold;">
+                    salad </div>
+            </a>
+        </ons-card>
 
-                    </div>
-                    <div class="recomended_item_title" id="item1_name">Item 2</div>
-                </ons-carousel-item>
-                <ons-carousel-item modifier="nodivider" id="item1" class="recomended_item">
-                    <div class="thumbnail" style="background-image: url('images/thumb3.png')">
+    </ons-row>
 
-                    </div>
-                    <div class="recomended_item_title" id="item1_name">Item 2</div>
-                </ons-carousel-item>
-                <ons-carousel-item modifier="nodivider" id="item1" class="recomended_item">
-                    <div class="thumbnail" style="background-image: url('images/thumb4.png')">
-
-                    </div>
-                    <div class="recomended_item_title" id="item1_name">Item 2</div>
-                </ons-carousel-item>
-                <ons-carousel-item modifier="nodivider" id="item1" class="recomended_item">
-                    <div class="thumbnail" style="background-image: url('images/thumb5.png')">
-
-                    </div>
-                    <div class="recomended_item_title" id="item1_name">Item 2</div>
-                </ons-carousel-item>
-            </ons-carousel>
-        </div>
-        <div id="category" class="category_content">
-            <h4 style="margin-top: 0px">Food Category</h4>
-            <ons-row class="category">
-                <ons-col modifier="nodivider">
-                    <div class="category_wrapper" style="background-image: url('images/category1.png')">
-                        <figure class="category_thumbnail">
-                            <div class="category_title" id="Category_1_name">Thai</div>
-                        </figure>
-                    </div>
-                </ons-col>
-                <ons-col modifier="nodivider">
-                    <div class="category_wrapper" style="background-image: url('images/category2.png')">
-                        <figure class="category_thumbnail">
-                            <div class="category_title" id="Category_1_name">Isan</div>
-                        </figure>
-                    </div>
-                </ons-col>
-            </ons-row>
-            <ons-row class="category">
-                <ons-col modifier="nodivider">
-                    <div class="category_wrapper" style="background-image: url('images/category3.png')">
-                        <figure class="category_thumbnail">
-                            <div class="category_title" id="Category_1_name">South</div>
-                        </figure>
-                    </div>
-                </ons-col>
-                <ons-col modifier="nodivider">
-                    <div class="category_wrapper" style="background-image: url('images/category4.png')">
-                        <figure class="category_thumbnail">
-                            <div class="category_title" id="Category_1_name">North</div>
-                        </figure>
-                    </div>
-                </ons-col>
-            </ons-row>
-            <ons-row class="category">
-                <ons-col modifier="nodivider">
-                    <div class="category_wrapper" style="background-image: url('images/category5.png')">
-                        <figure class="category_thumbnail">
-                            <div class="category_title" id="Category_1_name">Spicy</div>
-                        </figure>
-                    </div>
-                </ons-col>
-                <ons-col modifier="nodivider">
-                    <div class="category_wrapper" style="background-image: url('images/category6.png')">
-                        <figure class="category_thumbnail">
-                            <div class="category_title" id="Category_1_name">Local</div>
-                        </figure>
-                    </div>
-                </ons-col>
-            </ons-row>
-        </div>
+    <ons-button
+        style="margin-top:15px; text-align: center; width:80%; height: 28px; font-size: 8px; margin-left: 37px; padding: 0px; background-color: purple; color:white">
+        more...
+    </ons-button>
 </ons-page>
-<style type="text/css">
-    .recomended_item {
-        padding-left: 10px;
-    }
-
-    .recomended_item_title {
-        font-size: 12px;
-        font-weight: bold;
-    }
-
-    .thumbnail {
-        width: 120px;
-        height: 120px;
-        display: table;
-        background-color: rgba(0, 0, 0, 0.42);
-    }
-
-    .recomended_list {
-        height: 150px;
-    }
-
-    .recomended {
-        background-color: white;
-        padding-top: 60px;
-    }
-
-    .menu_list {
-        background: transparent;
-    }
-
-    .menu_item {
-        color: white;
-        font-size: 12px;
-    }
-
-    .menu_item ons-icon {
-        margin-right: 10px;
-        color: gray;
-        font-size: 16px;
-    }
-
-    .category_content {
-        background-color: white;
-    }
-
-    .category {
-        margin: 20px 0px;
-        padding: 0px 30px;
-    }
-
-    .category_wrapper {
-        max-width: 150px;
-        width: 95%;
-        height: 120px;
-        margin: auto;
-        background-color: gold;
-    }
-
-    .category_wrapper ons-icon {
-        font-size: 55px;
-        padding-top: 10px;
-        line-height: 0.75em;
-    }
-
-    .category_thumbnail {
-        display: inline-block;
-        margin: 16px 0px;
-    }
-
-    .category_title {
-        font-size: 30px;
-        font-weight: bold;
-        color: white;
-        padding-top: 20px;
-    }
-</style>

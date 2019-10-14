@@ -7,26 +7,11 @@ var firebaseConfig = {
     messagingSenderId: "33919573347",
     appId: "1:33919573347:web:b0b3f85e65ba410f048756",
     measurementId: "G-CSQ7Y9PQV0"
-  };
-  firebase.initializeApp(firebaseConfig);
-  firebase.analytics();
+};
+firebase.initializeApp(firebaseConfig);
+firebase.analytics();
+var provider = new firebase.auth.GoogleAuthProvider();
 
-  //Google auth
-  var provider = new firebase.auth.GoogleAuthProvider();
-  function signinGoogle() {
-    firebase.auth().signInWithPopup(provider).then(function (result) {
-        var token = result.credential.accessToken;
-        var user = result.user;
-        console.log(user);
-
-    }).catch(function (error) {
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        var email = error.email;
-        var credential = error.credential;
-
-    });
-}
 
 document.addEventListener('init', function (event) {
     var page = event.target;
@@ -60,11 +45,25 @@ document.addEventListener('init', function (event) {
 
     if (page.id === 'loginPage') {
         console.log("loginPage");
-        $("#signinwithgoogle").click(function () {
-        });
+        // Google auth
+       
+        function signinGoogle() {
+          
+        }
 
         $("#signinbtn").click(function () {
-
+            firebase.auth().signInWithRedirect(provider);
+            firebase.auth().getRedirectResult().then(function(result) {
+                if (result.credential) {
+                  var token = result.credential.accessToken;
+                }
+                var user = result.user;
+              }).catch(function(error) {
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                var email = error.email;
+                var credential = error.credential;
+              });
         });
         $("#backhomebtn").click(function () {
             $("#content")[0].load("home.html");
