@@ -10,8 +10,10 @@ var firebaseConfig = {
 };
 firebase.initializeApp(firebaseConfig);
 firebase.analytics();
+
 var provider = new firebase.auth.GoogleAuthProvider();
 
+var db = firebase.firestore();
 
 document.addEventListener('init', function (event) {
     var page = event.target;
@@ -22,6 +24,23 @@ document.addEventListener('init', function (event) {
 
         $("#menubtn").click(function () {
             $("#sidemenu")[0].open();
+        });
+
+        // $('#carousel').empty();
+
+        db.collection("reccomment").get().then((querySnapshot) => {
+            console.log("connect")
+            var i=0;
+            querySnapshot.forEach((doc) => {
+                console.log(i++);
+                //console.log(`${doc.id} => ${doc.data()}`);
+                var item = `<ons-carousel-item modifier="nodivider" id="${doc.data().id}" class="recomended_item">
+        <div class="thumbnail" style="background-image: url('${doc.data().picture}')">
+        </div>
+        <div class="recomended_item_title" id="item1_name">${doc.data().name}</div>
+        </ons-carousel-item>`;
+                $('#carousel').append(item);
+            });
         });
 
     }
@@ -43,27 +62,27 @@ document.addEventListener('init', function (event) {
         });
     }
 
+
     if (page.id === 'loginPage') {
         console.log("loginPage");
-        // Google auth
-       
+
         function signinGoogle() {
-          
+
         }
 
         $("#signinbtn").click(function () {
             firebase.auth().signInWithRedirect(provider);
-            firebase.auth().getRedirectResult().then(function(result) {
+            firebase.auth().getRedirectResult().then(function (result) {
                 if (result.credential) {
-                  var token = result.credential.accessToken;
+                    var token = result.credential.accessToken;
                 }
                 var user = result.user;
-              }).catch(function(error) {
+            }).catch(function (error) {
                 var errorCode = error.code;
                 var errorMessage = error.message;
                 var email = error.email;
                 var credential = error.credential;
-              });
+            });
         });
         $("#backhomebtn").click(function () {
             $("#content")[0].load("home.html");
