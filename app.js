@@ -26,19 +26,14 @@ document.addEventListener('init', function (event) {
             $("#sidemenu")[0].open();
         });
 
-        // $('#carousel').empty();
+        //$('#carousel').empty();
 
         db.collection("reccomment").get().then((querySnapshot) => {
-            console.log("connect")
-            var i=0;
             querySnapshot.forEach((doc) => {
-                console.log(i++);
-                //console.log(`${doc.id} => ${doc.data()}`);
-                var item = `<ons-carousel-item modifier="nodivider" id="${doc.data().id}" class="recomended_item">
-        <div class="thumbnail" style="background-image: url('${doc.data().picture}')">
-        </div>
-        <div class="recomended_item_title" id="item1_name">${doc.data().name}</div>
-        </ons-carousel-item>`;
+                var item = `<ons-carousel-item id="${doc.data().id}" style="background-size: 100%; 100%; width: 100%;height: 190px; background-image: url('${doc.data().picture}')">
+                <div style="text-align: center; font-size: 30px; padding-top:5px;margin-top: 145px; color: #fff; height: 46px;  background-color:black; opacity: 0.6;">
+                ${doc.data().name}
+                </ons-carousel-item>`;
                 $('#carousel').append(item);
             });
         });
