@@ -156,24 +156,21 @@ document.addEventListener('init', function (event) {
     if (page.id === 'menuPage') {
         console.log("menuPage");
 
-        function signinGoogle() {
+        db.collection("reccomment").where("id", "==", getMenuId())
+            .get()
+            .then(function (querySnapshot) {
+                querySnapshot.forEach(function (doc) {
+                   var menus = doc.data().menus
+                   for (let index = 0; index < menus.length; index++) {
+                       var menu = menus[index];
+                       console.log(menu.name);
+                       
+                       
+                   }
 
-        }
-
-        $("#signinbtn").click(function () {
-            firebase.auth().signInWithRedirect(provider);
-            firebase.auth().getRedirectResult().then(function (result) {
-                if (result.credential) {
-                    var token = result.credential.accessToken;
-                }
-                var user = result.user;
-            }).catch(function (error) {
-                var errorCode = error.code;
-                var errorMessage = error.message;
-                var email = error.email;
-                var credential = error.credential;
-            });
-        });
+                });
+            })
+        
         $("#backhomebtn").click(function () {
 
             $("#content")[0].load("home.html");

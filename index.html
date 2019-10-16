@@ -9,16 +9,43 @@
     <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
 
     <style>
-         .page__background {
+        .page__background {
             background: url('img/bg.jpg');
             background-repeat: no-repeat;
             opacity: 0.7;
         }
-        
+
+        .collapsible {
+            background-color: #eee;
+            color: #444;
+            cursor: pointer;
+            padding: 18px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 15px;
+        }
+
+        /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+        .active,
+        .collapsible:hover {
+            background-color: #ccc;
+        }
+
+        /* Style the collapsible content. Note: hidden by default */
+        .content {
+            padding: 0 18px;
+            display: none;
+            overflow: hidden;
+            background-color: #f1f1f1;
+        }
+
         #Search {
             background-color: aliceblue;
             width: 80%;
         }
+
         ons-input {
             width: 90%;
         }
@@ -36,33 +63,33 @@
             margin: 5px;
             width: 90%;
         }
+
         .recomended_item {
-        padding-left: 20px;
-    }
+            padding-left: 20px;
+        }
 
-    .recomended_item_title {
-        font-size: 12px;
-        font-weight: bold;
-    }
+        .recomended_item_title {
+            font-size: 12px;
+            font-weight: bold;
+        }
 
-    .thumbnail {
-        width: 180px;
-        height: 120px;
-        display: table;
-        background-size: 100% 100%; 
-        border-radius: 5px;
-        background-color: white;
-    }
+        .thumbnail {
+            width: 180px;
+            height: 120px;
+            display: table;
+            background-size: 100% 100%;
+            border-radius: 5px;
+            background-color: white;
+        }
 
-    .recomended_list {
-        height: 150px;
-    }
+        .recomended_list {
+            height: 150px;
+        }
 
-    .recomended {
-        background-color: white;
-        padding-top: 60px;
-    }
-    
+        .recomended {
+            background-color: white;
+            padding-top: 60px;
+        }
     </style>
 </head>
 
@@ -75,13 +102,14 @@
     <template id="splitter.html">
         <ons-page>
             <ons-splitter id="mySplitter">
-                <ons-splitter-side id="sidemenu" page="tools.html" width="300px;" swipeable width="250px" collapse swipe-target-width="50px">
+                <ons-splitter-side id="sidemenu" page="tools.html" width="300px;" swipeable width="250px" collapse
+                    swipe-target-width="50px">
                 </ons-splitter-side>
                 <ons-splitter-content page="home.html" id="content">
                 </ons-splitter-content>
             </ons-splitter>
         </ons-page>
-</template>
+    </template>
     <script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-analytics.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-auth.js"></script>
