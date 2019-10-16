@@ -25,11 +25,11 @@ var getType = function () {
 }
 var setMenuID = function (refId){
     console.log(refId+" Clicked!");
-    $("#content")[0].load("home.html");
-    menuId=refId
+    menuId=refId;
+    $("#content")[0].load("menu.html");
 }
 var getMenuId = function (){
-    return menuId
+    return menuId;
 }
 
 
@@ -48,7 +48,7 @@ document.addEventListener('init', function (event) {
             .then((querySnapshot) => {
                 querySnapshot.forEach((doc) => {
                     var item = `
-                <ons-carousel-item id="${doc.data().id}" style="background-size: 100%; 100%; width: 100%;height: 190px; background-image: url('${doc.data().picture}')">
+                <ons-carousel-item id="${doc.data().id}" onclick="setMenuID('${doc.data().id}')" style="background-size: 100%; 100%; width: 100%;height: 190px; background-image: url('${doc.data().picture}')">
                 <div style="font-size: 15px;background-color:purple;width: 60px;color: #fff;margin-left: 315px;height: 25px;margin-top: 15px;">
                     <i class="fas fa-star" style="color: orange; margin-left:10px; margin-top:5px;"></i> ${doc.data().rate}</div>
                 <div style="font-size: 15px;background-color:purple;width: 60px;color: #fff;margin-top: 15px;margin-left: 315px;padding-left: 8px;"></i> ${doc.data().delivery} min</div>
@@ -95,7 +95,7 @@ document.addEventListener('init', function (event) {
             .get()
             .then(function (querySnapshot) {
                 querySnapshot.forEach(function (doc) {
-                    var item = `<ons-card id="${doc.data().id}" onclick="testClick('${doc.data().id}')"  style="background-size: 100%; 90%;width: 350px;height: 190px;background-image: url('${doc.data().picture}');padding-right: 0px;padding-left: 0px; margin:15px;">
+                    var item = `<ons-card id="${doc.data().id}" onclick="setMenuID('${doc.data().id}')"  style="background-size: 100%; 90%;width: 350px;height: 190px;background-image: url('${doc.data().picture}');padding-right: 0px;padding-left: 0px; margin:15px;">
                     <div style="font-size: 15px;background-color:purple;width: 60px;color: white;margin-left: 290px;height: 25px;margin-top: 15px;">
                         <i class="fas fa-star" style="color: orange; margin-left:10px; margin-top:5px;"></i> ${doc.data().rate}</div>
                     <div style="font-size: 15px;background-color:purple;width: 52px;color: white ;margin-top: 15px;margin-left: 290px;padding-left: 8px;height: 17px;"></i> ${doc.data().delivery} min </div>
@@ -133,6 +133,28 @@ document.addEventListener('init', function (event) {
 
     if (page.id === 'loginPage') {
         console.log("loginPage");
+
+        $("#signinbtn").click(function () {
+            firebase.auth().signInWithRedirect(provider);
+            firebase.auth().getRedirectResult().then(function (result) {
+                if (result.credential) {
+                    var token = result.credential.accessToken;
+                }
+                var user = result.user;
+            }).catch(function (error) {
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                var email = error.email;
+                var credential = error.credential;
+            });
+        });
+        $("#backhomebtn").click(function () {
+
+            $("#content")[0].load("home.html");
+        });
+    }
+    if (page.id === 'menuPage') {
+        console.log("menuPage");
 
         function signinGoogle() {
 
