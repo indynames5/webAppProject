@@ -76,7 +76,9 @@ document.addEventListener('init', function (event) {
             .catch(function (error) {
                 console.log("Error getting documents: ", error);
             });
-
+            $("#backbtn").click(function () {
+                $("#content").load("index.html");
+            });
     }
 
     if (page.id === 'menuPage') {
