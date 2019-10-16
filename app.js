@@ -16,12 +16,22 @@ var provider = new firebase.auth.GoogleAuthProvider();
 var db = firebase.firestore();
 
 var type = "";
+var menuid
 var setType = function (input) {
     type = input
 }
 var getType = function () {
     return type
 }
+var setMenuID = function (refId){
+    console.log(refId+" Clicked!");
+    $("#content")[0].load("home.html");
+    menuId=refId
+}
+var getMenuId = function (){
+    return menuId
+}
+
 
 document.addEventListener('init', function (event) {
     var page = event.target;
@@ -33,7 +43,7 @@ document.addEventListener('init', function (event) {
             $("#sidemenu")[0].open();
         });
 
-        db.collection("reccomment").orderBy("rate","desc").limit(5)
+        db.collection("reccomment").orderBy("rate", "desc").limit(5)
             .get()
             .then((querySnapshot) => {
                 querySnapshot.forEach((doc) => {
@@ -51,7 +61,28 @@ document.addEventListener('init', function (event) {
         $("#noodle").click(function () {
             setType("noodle")
             console.log(type);
-            $("#content").load("list.html");
+            console.log("click");
+            $("#content")[0].load("list.html");
+        }); $("#burger").click(function () {
+            setType("burger")
+            console.log(type);
+            $("#content")[0].load("list.html");
+        }); $("#steak").click(function () {
+            setType("steak")
+            console.log(type);
+            $("#content")[0].load("list.html");
+        }); $("#sushi").click(function () {
+            setType("sushi")
+            console.log(type);
+            $("#content")[0].load("list.html");
+        }); $("#pizza").click(function () {
+            setType("pizaa")
+            console.log(type);
+            $("#content")[0].load("list.html");
+        }); $("#salad").click(function () {
+            setType("salad")
+            console.log(type);
+            $("#content")[0].load("list.html");
         });
 
     }
@@ -60,11 +91,11 @@ document.addEventListener('init', function (event) {
         console.log(getType());
         $("#sidemenu")[0].close();
 
-        db.collection("reccomment").where("type", "==", getType())
+        db.collection("reccomment").where("type", "==", getType()).orderBy("rate", "desc")
             .get()
             .then(function (querySnapshot) {
                 querySnapshot.forEach(function (doc) {
-                    var item = `<ons-card id="${doc.data().id}" style="background-size: 100%; 90%;width: 350px;height: 190px;background-image: url('${doc.data().picture}');padding-right: 0px;padding-left: 0px; margin:15px;">
+                    var item = `<ons-card id="${doc.data().id}" onclick="testClick('${doc.data().id}')"  style="background-size: 100%; 90%;width: 350px;height: 190px;background-image: url('${doc.data().picture}');padding-right: 0px;padding-left: 0px; margin:15px;">
                     <div style="font-size: 15px;background-color:purple;width: 60px;color: white;margin-left: 290px;height: 25px;margin-top: 15px;">
                         <i class="fas fa-star" style="color: orange; margin-left:10px; margin-top:5px;"></i> ${doc.data().rate}</div>
                     <div style="font-size: 15px;background-color:purple;width: 52px;color: white ;margin-top: 15px;margin-left: 290px;padding-left: 8px;height: 17px;"></i> ${doc.data().delivery} min </div>
@@ -76,13 +107,14 @@ document.addEventListener('init', function (event) {
             .catch(function (error) {
                 console.log("Error getting documents: ", error);
             });
-            $("#backbtn").click(function () {
-                $("#content").load("index.html");
-            });
+        $("#backbtn").click(function () {
+            $('#list').empty();
+            $("#content")[0].load("home.html");
+        });
     }
 
-    if (page.id === 'menuPage') {
-        console.log("menuPage");
+    if (page.id === 'toolsPage') {
+        console.log("toolPage");
 
         $("#login").click(function () {
             $("#content")[0].load("login.html");
@@ -121,6 +153,7 @@ document.addEventListener('init', function (event) {
             });
         });
         $("#backhomebtn").click(function () {
+
             $("#content")[0].load("home.html");
         });
     }
