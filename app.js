@@ -33,18 +33,20 @@ document.addEventListener('init', function (event) {
             $("#sidemenu")[0].open();
         });
 
-        db.collection("reccomment").get().then((querySnapshot) => {
-            querySnapshot.forEach((doc) => {
-                var item = `
+        db.collection("reccomment").orderBy("rate","desc").limit(5)
+            .get()
+            .then((querySnapshot) => {
+                querySnapshot.forEach((doc) => {
+                    var item = `
                 <ons-carousel-item id="${doc.data().id}" style="background-size: 100%; 100%; width: 100%;height: 190px; background-image: url('${doc.data().picture}')">
                 <div style="font-size: 15px;background-color:purple;width: 60px;color: #fff;margin-left: 315px;height: 25px;margin-top: 15px;">
                     <i class="fas fa-star" style="color: orange; margin-left:10px; margin-top:5px;"></i> ${doc.data().rate}</div>
                 <div style="font-size: 15px;background-color:purple;width: 60px;color: #fff;margin-top: 15px;margin-left: 315px;padding-left: 8px;"></i> ${doc.data().delivery} min</div>
                     <div style="text-align: center; font-size: 30px; padding-top:5px;margin-top: 75px; color: #fff; height: 46px;  background-color:black; opacity: 0.6;">
                     ${doc.data().name}</div></ons-carousel-item>`;
-                $('#carousel').append(item);
+                    $('#carousel').append(item);
+                });
             });
-        });
 
         $("#noodle").click(function () {
             setType("noodle")
@@ -57,18 +59,18 @@ document.addEventListener('init', function (event) {
         console.log("listPage");
         console.log(getType());
         $("#sidemenu")[0].close();
-        
+
         db.collection("reccomment").where("type", "==", getType())
             .get()
             .then(function (querySnapshot) {
                 querySnapshot.forEach(function (doc) {
-                    var item=`<ons-card id="${doc.data().id}" style="background-size: 100%; 90%;width: 350px;height: 190px;background-image: url('${doc.data().picture}');padding-right: 0px;padding-left: 0px; margin:15px;">
+                    var item = `<ons-card id="${doc.data().id}" style="background-size: 100%; 90%;width: 350px;height: 190px;background-image: url('${doc.data().picture}');padding-right: 0px;padding-left: 0px; margin:15px;">
                     <div style="font-size: 15px;background-color:purple;width: 60px;color: white;margin-left: 290px;height: 25px;margin-top: 15px;">
                         <i class="fas fa-star" style="color: orange; margin-left:10px; margin-top:5px;"></i> ${doc.data().rate}</div>
-                    <div style="font-size: 15px;background-color:purple;width: 52px;color: white;margin-top: 15px;margin-left: 290px;padding-left: 8px;height: 17px;"></i> ${doc.data().delivery} min </div>
-                        <div style="text-align: center; font-size: 30px; padding-top:5px;margin-top: 53px; color: black; height: 46px;  background-color:white; border-radius: 0px 0px 10px 10px;">
+                    <div style="font-size: 15px;background-color:purple;width: 52px;color: white ;margin-top: 15px;margin-left: 290px;padding-left: 8px;height: 17px;"></i> ${doc.data().delivery} min </div>
+                        <div style="text-align: center; font-size: 30px; padding-top:5px;margin-top: 53px; color: white; height: 46px;  background-color:purple; border-radius: 0px 0px 10px 10px;">
                         ${doc.data().name}</div></ons-card>`
-                $('#list').append(item);
+                    $('#list').append(item);
                 });
             })
             .catch(function (error) {
