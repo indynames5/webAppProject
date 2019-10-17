@@ -14,7 +14,7 @@ firebase.analytics();
 var provider = new firebase.auth.GoogleAuthProvider();
 
 var db = firebase.firestore();
-
+var price = 0;
 var type = "";
 var menuid
 var setType = function (input) {
@@ -23,13 +23,21 @@ var setType = function (input) {
 var getType = function () {
     return type
 }
-var setMenuID = function (refId){
-    console.log(refId+" Clicked!");
-    menuId=refId;
+var setMenuID = function (refId) {
+    console.log(refId + " Clicked!");
+    menuId = refId;
     $("#content")[0].load("menu.html");
 }
-var getMenuId = function (){
+var getMenuId = function () {
     return menuId;
+}
+var setPrice = function (Price) {
+   
+    price = price+Price;
+    var setprice = `${price}`;
+    $('#Price').empty();
+    $('#Price').append(setprice);
+    
 }
 
 
@@ -160,20 +168,38 @@ document.addEventListener('init', function (event) {
             .get()
             .then(function (querySnapshot) {
                 querySnapshot.forEach(function (doc) {
-                   var menus = doc.data().menus
-                   for (let index = 0; index < menus.length; index++) {
-                       var menu = menus[index];
-                       console.log(menu.name);
-                       
-                       
-                   }
+                    var pictureMenu= `<div
+                        style="background-size: 100%; background-repeat: no-repeat; width: 100%;height: 150px; background-image: url('${doc.data().picture}'); margin-bottom:15px;">
+                    </div>`
+                    $('#pictureMenu').append(pictureMenu);
+                    var menus = doc.data().menus
+                    for (let index = 0; index < menus.length; index++) {
+                        var menu = menus[index];
+                        console.log(menu.name);
+                        var item = `<ons-row style="margin-bottom:4px;">
+                <label style="width: 75%; padding-top:10px;">
+                    ${menu.name}
+                </label>
+                <label style="width: 12%; padding-top :10px;">
+                    $${menu.price}
+                </label>
+                <ons-button onclick="setPrice(${menu.price})" style=" background-color: purple;"><i class="fas fa-plus fa-xs"
+                        style="color: aliceblue"></i>
+
+                </ons-button>
+            </ons-row>`
+                        $('#listmenu').append(item);
+                    }
 
                 });
             })
-        
-        $("#backhomebtn").click(function () {
 
+        $("#backhomebtn").click(function () {
             $("#content")[0].load("home.html");
+        });
+
+        $("#orderbtn").click(function () {
+            $("#content")[0].load("confirm.html");
         });
     }
 
