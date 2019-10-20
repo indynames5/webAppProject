@@ -4,32 +4,30 @@
             <ons-toolbar-button id="backhomebtn"><i class="fas fa-angle-left" style="color:orange"></i>
             </ons-toolbar-button>
         </div>
-        <div class="center" style="color:orange"> Pizza Hut </div>
+        <div class="center" id="NameRes" style="color:orange"></div>
     </ons-toolbar>
 
 
-    <!-- <div style="background-size: 100%;  width: 100%;height: 250px; background-image: url(img/bg.jpg)"></div>
-
-        <ons-row>
-                <ons-col width="50px"><ons-icon icon="fa-twitter"></ons-icon></ons-col>
-                <ons-col>Text</ons-col>
-              </ons-row>
-             -->
-
-    <ons-card style="margin-left:30px; margin-right: 30px; margin-top:15px;" >
+    <ons-card style="margin-left:30px; margin-right: 30px; margin-top:15px;">
         <ons-col id="pictureMenu">
 
         </ons-col>
-        
-        <ons-col id="listmenu">
-
+        <div style="font-weight: bold; font-size: 20px; margin-bottom: 8px; color:black;">Main Dishes</div>
+        <ons-col id="listMenu" style="font-weight: bold; font-size: 10px;">
         </ons-col>
-    </ons-card>
-    <ons-bottom-toolbar
-        style="text-align: center; color:white; padding-top:12px; background-color: black; font-size:15px;">
+        <div id="nameEtc"style=" font-weight: bold; font-size: 20px; margin-bottom: 8px; color:black;"></div>
+        <ons-col id="listEtc" style="font-weight: bold; font-size: 10px;">
+        
+                <div id="nameList"style="font-weight: bold; font-size: 20px; margin-bottom: 8px; color:black;"></div>
+        </ons-col>
 
-        Your Order : $<label id="Price"> 0 </label> <ons-button modifier="outline"
-            style=" height: 30px; font-size:7px; padding-top :0px; padding-bottom: 0px;"
+
+
+    </ons-card>
+    <ons-bottom-toolbar style="text-align: center;color:white;padding-top: 6px;background-color: black;font-size:15px;">
+
+        Your Order : $<label id="Price"> 0 </label>
+        <ons-button modifier="outline" style=" height: 30px; font-size:7px; padding-top :0px; padding-bottom: 0px;"
             id="orderbtn"> Order </ons-button>
     </ons-bottom-toolbar>
 

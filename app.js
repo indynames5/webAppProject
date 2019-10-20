@@ -17,6 +17,7 @@ var db = firebase.firestore();
 var price = 0;
 var type = "";
 var menuid
+
 var setType = function (input) {
     type = input
 }
@@ -32,12 +33,12 @@ var getMenuId = function () {
     return menuId;
 }
 var setPrice = function (Price) {
-   
-    price = price+Price;
+
+    price = price + Price;
+
     var setprice = `${price}`;
     $('#Price').empty();
     $('#Price').append(setprice);
-    
 }
 
 
@@ -56,10 +57,10 @@ document.addEventListener('init', function (event) {
             .then((querySnapshot) => {
                 querySnapshot.forEach((doc) => {
                     var item = `
-                <ons-carousel-item id="${doc.data().id}" onclick="setMenuID('${doc.data().id}')" style="background-size: 100%; 100%; width: 100%;height: 190px; background-image: url('${doc.data().picture}')">
-                <div style="font-size: 15px;background-color:purple;width: 60px;color: #fff;margin-left: 315px;height: 25px;margin-top: 15px;">
+                    <ons-carousel-item id="${doc.data().id}" onclick="setMenuID('${doc.data().id}')" style="background-size: 100%;  width: 100%;height: 190px; background-image: url('${doc.data().picture}')">
+                    <div style="font-size: 15px;background-color:purple;width: 60px;color: #fff;margin-left: 315px;height: 25px;margin-top: 15px;">
                     <i class="fas fa-star" style="color: orange; margin-left:10px; margin-top:5px;"></i> ${doc.data().rate}</div>
-                <div style="font-size: 15px;background-color:purple;width: 60px;color: #fff;margin-top: 15px;margin-left: 315px;padding-left: 8px;"></i> ${doc.data().delivery} min</div>
+                    <div style="font-size: 15px;background-color:purple;width: 60px;color: #fff;margin-top: 15px;margin-left: 315px;padding-left: 8px;"></i> ${doc.data().delivery} min</div>
                     <div style="text-align: center; font-size: 30px; padding-top:5px;margin-top: 75px; color: #fff; height: 46px;  background-color:black; opacity: 0.6;">
                     ${doc.data().name}</div></ons-carousel-item>`;
                     $('#carousel').append(item);
@@ -129,7 +130,9 @@ document.addEventListener('init', function (event) {
             $("#sidemenu")[0].close();
         });
 
-        $("#logout").click(function () {
+        $("#regis").click(function () {
+            $("#content")[0].load("register.html");
+            $("#sidemenu")[0].close();
         });
 
         $("#home").click(function () {
@@ -168,29 +171,41 @@ document.addEventListener('init', function (event) {
             .get()
             .then(function (querySnapshot) {
                 querySnapshot.forEach(function (doc) {
-                    var pictureMenu= `<div
+                    var pictureMenu = `<div
                         style="background-size: 100%; background-repeat: no-repeat; width: 100%;height: 150px; background-image: url('${doc.data().picture}'); margin-bottom:15px;">
-                    </div>`
+                    </div>`;
                     $('#pictureMenu').append(pictureMenu);
+                    var NameRes = `${doc.data().name}`;
+                    $('#NameRes').append(NameRes);
                     var menus = doc.data().menus
+                    
+
                     for (let index = 0; index < menus.length; index++) {
                         var menu = menus[index];
                         console.log(menu.name);
+                        var types = menu.type;
+                        console.log(types);
+                        
+                        var food = "food";
+
                         var item = `<ons-row style="margin-bottom:4px;">
-                <label style="width: 75%; padding-top:10px;">
-                    ${menu.name}
-                </label>
-                <label style="width: 12%; padding-top :10px;">
-                    $${menu.price}
-                </label>
-                <ons-button onclick="setPrice(${menu.price})" style=" background-color: purple;"><i class="fas fa-plus fa-xs"
-                        style="color: aliceblue"></i>
-
-                </ons-button>
-            </ons-row>`
-                        $('#listmenu').append(item);
+                        <label style="width: 75%; padding-top:10px; font-size:12px; padding-top:5px; opacity: 0.7;">
+                        ${menu.name}
+                        </label>
+                        <label style="width: 12%; padding-top :10px; font-size:12px; padding-top:5px; background-color:orange; padding-left: 9px; width:32px; color:white; border-radius: 30px;">
+                        $${menu.price}
+                        </label>
+                        <div onclick="setPrice(${menu.price})" style=" background-color: purple;font-size:20px;color:white;margin-left: 4px;padding-left: 5px;padding-right: 5px;"> + </div>
+                        </ons-row>`
+                        if(types==="food") $('#listMenu').append(item);
+                        else  {
+                            
+                            $('#listEtc').append(item);
+                            if($('#nameList').text()==="") {
+                                $('#nameList').append(types);
+                            }
+                        }    
                     }
-
                 });
             })
 
@@ -202,6 +217,15 @@ document.addEventListener('init', function (event) {
             $("#content")[0].load("confirm.html");
         });
     }
+    if (page.id === 'regisPage') {
+        $("#register").click(function () {
+            
+        });
 
+
+        $("#backhomebtn").click(function () {
+            $("#content")[0].load("home.html");
+        });
+    }
 
 })

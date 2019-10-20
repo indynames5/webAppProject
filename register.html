@@ -1,43 +1,5 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
-    <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
-    <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
-    <script src="https://unpkg.com/jquery/dist/jquery.min.js"></script>
-    <!-- <link href="https://fonts.googleapis.com/css?family=Noto+Sans&display=swap" rel="stylesheet"> -->
-    <style>
-        #mypage .page__background {
-            background: url('img/bg.jpg');
-            background-repeat: no-repeat;
-
-        }
-
-        ons-input {
-            width: 90%;
-        }
-
-        .login {
-
-            width: 90%;
-        }
-
-        ons-card {
-            margin: 30px auto;
-        }
-
-        .another {
-
-            margin: 5px;
-            width: 90%;
-        }
-    </style>
-</head>
-
-<body>
-
-    <ons-page id='mypage'>
+   <ons-page id='regisPage'>
+        <i class="fas fa-chevron-left fa-2x " id="backhomebtn"style="color:white; margin-left: 5px;margin-top: 3px;"></i>
         <ons-card style=" margin-top: 38%">
             <div style="text-align: center; ">
                 <p>
@@ -64,48 +26,9 @@
                 </p>
 
                 <p>
-                    <ons-button class="login" style="background-color: orange"
-                        onclick="window.location.href = 'index.html';">Register</ons-button>
+                    <ons-button class="login" style="background-color: orange" id="register">Register</ons-button>
                 </p>
-                <p>
-                    <ons-button class="another" style="margin-top:30px; background-color: red;"
-                        onclick="window.location.href = 'index.html';">Gmail</ons-button>
-
-
-
-                </p>
-
+                
             </div>
-
-
         </ons-card>
     </ons-page>
-    <!-- The core Firebase JS SDK is always required and must be listed first -->
-    <script src="https://www.gstatic.com/firebasejs/7.1.0/firebase-app.js"></script>
-
-    <!-- TODO: Add SDKs for Firebase products that you want to use
-     https://firebase.google.com/docs/web/setup#available-libraries -->
-    <script src="https://www.gstatic.com/firebasejs/7.1.0/firebase-analytics.js"></script>
-
-    <script>
-        // Your web app's Firebase configuration
-        var firebaseConfig = {
-            apiKey: "AIzaSyCNN0Uge5RExAFY9aZyQdQA4l51-DOEY4w",
-            authDomain: "webappproject-83551.firebaseapp.com",
-            databaseURL: "https://webappproject-83551.firebaseio.com",
-            projectId: "webappproject-83551",
-            storageBucket: "webappproject-83551.appspot.com",
-            messagingSenderId: "33919573347",
-            appId: "1:33919573347:web:b0b3f85e65ba410f048756",
-            measurementId: "G-CSQ7Y9PQV0"
-        };
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-        firebase.analytics();
-
-    </script>
-    <script src="firebase.js"></script>
-
-</body>
-
-</html>
