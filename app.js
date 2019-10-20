@@ -15,22 +15,29 @@ var provider = new firebase.auth.GoogleAuthProvider();
 
 var db = firebase.firestore();
 var price = 0;
+var click = 0;
 var type = "";
 var menuid;
 var menu;
 
 firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
+        
         var email = user.email;
         console.log("welcom " + email);
         $('#login').hide();
         $('#regis').hide();
+        $('#logout').show();
 
     } else {
+        
 
-        console.log("welcom " + email);
+        $('#login').show();
+        $('#regis').show();
         $('#logout').hide();
     }
+        
+    
 });
 var setType = function (input) {
     type = input
@@ -50,8 +57,11 @@ var setPrice = function (Price) {
     var user = firebase.auth().currentUser;
 
     if (user) {
+        
         price = price + Price;
         var setprice = `${price}`;
+        click++;
+        console.log(click);
         $('#Price').empty();
         $('#Price').append(setprice);
     } else {
@@ -61,7 +71,6 @@ var setPrice = function (Price) {
     
 }
 var setMenu = function (menus) {
-    
     menu = menus;
 }
 var getMenu = function () {
@@ -79,9 +88,9 @@ var signout = function () {
 
 document.addEventListener('init', function (event) {
     var page = event.target;
+    console.log("event id:",page.id);
 
     if (page.id === 'homePage') {
-        console.log("homePage");
 
         $("#menubtn").click(function () {
             $("#sidemenu")[0].open();
@@ -135,7 +144,7 @@ document.addEventListener('init', function (event) {
     }
 
     if (page.id === 'listPage') {
-        console.log("listPage");
+
         console.log(getType());
         if (getType() == "") {
             db.collection("reccomment").orderBy("rate", "desc")
@@ -204,7 +213,7 @@ document.addEventListener('init', function (event) {
 
 
     if (page.id === 'loginPage') {
-        console.log("loginPage");
+
         $("#signinbtn").click(function () {
             var Email = document.getElementById('email').value;
             var Password = document.getElementById('pass').value;
@@ -245,7 +254,7 @@ document.addEventListener('init', function (event) {
         });
     }
     if (page.id === 'menuPage') {
-        console.log("menuPage");
+
         
         db.collection("reccomment").where("id", "==", getMenuId())
             .get()
