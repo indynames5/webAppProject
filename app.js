@@ -16,8 +16,8 @@ var provider = new firebase.auth.GoogleAuthProvider();
 var db = firebase.firestore();
 var price = 0;
 var type = "";
-var menuid
-
+var menuid;
+var menu;
 var setType = function (input) {
     type = input
 }
@@ -39,6 +39,14 @@ var setPrice = function (Price) {
     var setprice = `${price}`;
     $('#Price').empty();
     $('#Price').append(setprice);
+}
+var setMenu = function (menus) {
+    menu = menus;
+}
+var getMenu = function () {
+    console.log(menu);
+    
+    return menu;
 }
 
 
@@ -178,36 +186,47 @@ document.addEventListener('init', function (event) {
                     var NameRes = `${doc.data().name}`;
                     $('#NameRes').append(NameRes);
                     var menus = doc.data().menus
-                    
-
-                    for (let index = 0; index < menus.length; index++) {
-                        var menu = menus[index];
-                        console.log(menu.name);
-                        var types = menu.type;
-                        console.log(types);
-                        
-                        var food = "food";
-
-                        var item = `<ons-row style="margin-bottom:4px;">
-                        <label style="width: 75%; padding-top:10px; font-size:12px; padding-top:5px; opacity: 0.7;">
-                        ${menu.name}
-                        </label>
-                        <label style="width: 12%; padding-top :10px; font-size:12px; padding-top:5px; background-color:orange; padding-left: 9px; width:32px; color:white; border-radius: 30px;">
-                        $${menu.price}
-                        </label>
-                        <div onclick="setPrice(${menu.price})" style=" background-color: purple;font-size:20px;color:white;margin-left: 4px;padding-left: 5px;padding-right: 5px;"> + </div>
-                        </ons-row>`
-                        if(types==="food") $('#listMenu').append(item);
-                        else  {
-                            
-                            $('#listEtc').append(item);
-                            if($('#nameList').text()==="") {
-                                $('#nameList').append(types);
-                            }
-                        }    
-                    }
+                    console.log(menus);
+                    setMenu(menus);
                 });
+
+                var menus=getMenu();
+                var types = [];
+            for (let index = 0; index < menus.length; index++) {
+                var menu = menus[index];
+                var type = menu.type;
+                var item = `<div style="font-weight: bold;font-size: 20px;color:black;margin-top:8px;margin-bottom: 8px;" >${menu.type}</div>
+                    <ons-col id="${menu.type}" style="font-weight: bold; font-size: 10px;">
+                    </ons-col>`
+                if($('#textMenu').text()===""){
+                    $('#textMenu').append(item);
+                }else{
+                    var typeInID=$('#textMenu').text();  
+                    if(type===types[index-1]){
+                    }else{
+                        $('#textMenu').append(item);
+                    }
+                }
+                types[index] = type;  
+            }
+            for (let index = 0; index < menus.length; index++) {
+                var menu = menus[index];
+                var type = menu.type;
+                console.log(type);
+                var item =`<ons-row style="margin-bottom:4px; ">
+                   <label style="width: 75%; padding-top:10px; font-size:12px; padding-top:5px; opacity: 0.7;">
+                    ${menu.name}
+                    </label>
+                    <label style="width: 12%; padding-top :10px; font-size:12px; padding-top:5px; background-color:orange; padding-left: 9px; width:32px; color:white; border-radius: 30px;">
+                     $${menu.price}
+                     </label>
+                    <div onclick="setPrice(${menu.price})" style=" background-color: purple;font-size:20px;color:white;margin-left: 4px;padding-left: 5px;padding-right: 5px;"> + </div>
+                    </ons-row>`
+                $('#'+type).append(item);
+                    
+            }
             })
+            
 
         $("#backhomebtn").click(function () {
             $("#content")[0].load("home.html");
