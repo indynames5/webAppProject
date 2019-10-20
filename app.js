@@ -18,6 +18,20 @@ var price = 0;
 var type = "";
 var menuid;
 var menu;
+
+firebase.auth().onAuthStateChanged(function (user) {
+    if (user) {
+        var email = user.email;
+        console.log("welcom " + email);
+        $('#login').hide();
+        $('#regis').hide();
+
+    } else {
+
+        console.log("welcom " + email);
+        $('#logout').hide();
+    }
+});
 var setType = function (input) {
     type = input
 }
@@ -33,20 +47,33 @@ var getMenuId = function () {
     return menuId;
 }
 var setPrice = function (Price) {
+    var user = firebase.auth().currentUser;
 
-    price = price + Price;
-
-    var setprice = `${price}`;
-    $('#Price').empty();
-    $('#Price').append(setprice);
+    if (user) {
+        price = price + Price;
+        var setprice = `${price}`;
+        $('#Price').empty();
+        $('#Price').append(setprice);
+    } else {
+        alert("Please login");
+        $("#content")[0].load("login.html");
+    }
+    
 }
 var setMenu = function (menus) {
+    
     menu = menus;
 }
 var getMenu = function () {
     console.log(menu);
-    
     return menu;
+}
+var signout = function () {
+    firebase.auth().signOut().then(function () {
+        alert("signout success");
+    }).catch(function (error) {
+        // An error happened.
+    });
 }
 
 
@@ -100,30 +127,52 @@ document.addEventListener('init', function (event) {
             setType("salad")
             console.log(type);
             $("#content")[0].load("list.html");
+        }); $("#seeallbtn").click(function () {
+            setType("")
+            $("#content")[0].load("list.html");
         });
 
     }
+
     if (page.id === 'listPage') {
         console.log("listPage");
         console.log(getType());
-        $("#sidemenu")[0].close();
-
-        db.collection("reccomment").where("type", "==", getType()).orderBy("rate", "desc")
-            .get()
-            .then(function (querySnapshot) {
-                querySnapshot.forEach(function (doc) {
-                    var item = `<ons-card id="${doc.data().id}" onclick="setMenuID('${doc.data().id}')"  style="background-size: 100%; 90%;width: 350px;height: 190px;background-image: url('${doc.data().picture}');padding-right: 0px;padding-left: 0px; margin:15px;">
+        if (getType() == "") {
+            db.collection("reccomment").orderBy("rate", "desc")
+                .get()
+                .then(function (querySnapshot) {
+                    querySnapshot.forEach(function (doc) {
+                        var item = `<ons-card id="${doc.data().id}" onclick="setMenuID('${doc.data().id}')"  style="background-size: 100%; 90%;width: 350px;height: 190px;background-image: url('${doc.data().picture}');padding-right: 0px;padding-left: 0px; margin:15px;">
                     <div style="font-size: 15px;background-color:purple;width: 60px;color: white;margin-left: 290px;height: 25px;margin-top: 15px;">
                         <i class="fas fa-star" style="color: orange; margin-left:10px; margin-top:5px;"></i> ${doc.data().rate}</div>
                     <div style="font-size: 15px;background-color:purple;width: 52px;color: white ;margin-top: 15px;margin-left: 290px;padding-left: 8px;height: 17px;"></i> ${doc.data().delivery} min </div>
                         <div style="text-align: center; font-size: 30px; padding-top:5px;margin-top: 53px; color: white; height: 46px;  background-color:purple; border-radius: 0px 0px 10px 10px;">
                         ${doc.data().name}</div></ons-card>`
-                    $('#list').append(item);
+                        $('#list').append(item);
+                    });
+                })
+                .catch(function (error) {
+                    console.log("Error getting documents: ", error);
                 });
-            })
-            .catch(function (error) {
-                console.log("Error getting documents: ", error);
-            });
+
+        } else {
+            db.collection("reccomment").where("type", "==", getType()).orderBy("rate", "desc")
+                .get()
+                .then(function (querySnapshot) {
+                    querySnapshot.forEach(function (doc) {
+                        var item = `<ons-card id="${doc.data().id}" onclick="setMenuID('${doc.data().id}')"  style="background-size: 100%; 90%;width: 350px;height: 190px;background-image: url('${doc.data().picture}');padding-right: 0px;padding-left: 0px; margin:15px;">
+                    <div style="font-size: 15px;background-color:purple;width: 60px;color: white;margin-left: 290px;height: 25px;margin-top: 15px;">
+                        <i class="fas fa-star" style="color: orange; margin-left:10px; margin-top:5px;"></i> ${doc.data().rate}</div>
+                    <div style="font-size: 15px;background-color:purple;width: 52px;color: white ;margin-top: 15px;margin-left: 290px;padding-left: 8px;height: 17px;"></i> ${doc.data().delivery} min </div>
+                        <div style="text-align: center; font-size: 30px; padding-top:5px;margin-top: 53px; color: white; height: 46px;  background-color:purple; border-radius: 0px 0px 10px 10px;">
+                        ${doc.data().name}</div></ons-card>`
+                        $('#list').append(item);
+                    });
+                })
+                .catch(function (error) {
+                    console.log("Error getting documents: ", error);
+                });
+        }
         $("#backbtn").click(function () {
             $('#list').empty();
             $("#content")[0].load("home.html");
@@ -131,7 +180,6 @@ document.addEventListener('init', function (event) {
     }
 
     if (page.id === 'toolsPage') {
-        console.log("toolPage");
 
         $("#login").click(function () {
             $("#content")[0].load("login.html");
@@ -147,13 +195,37 @@ document.addEventListener('init', function (event) {
             $("#content")[0].load("home.html");
             $("#sidemenu")[0].close();
         });
+        $("#logout").click(function () {
+            signout()
+            $("#content")[0].load("home.html");
+            $("#sidemenu")[0].close();
+        });
     }
 
 
     if (page.id === 'loginPage') {
         console.log("loginPage");
-
         $("#signinbtn").click(function () {
+            var Email = document.getElementById('email').value;
+            var Password = document.getElementById('pass').value;
+            firebase.auth().signInWithEmailAndPassword(Email, Password).then(function (){
+                $("#content")[0].load("home.html");
+            })
+            .catch(function (error) {
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                if (errorCode === 'auth/weak-password') {
+                    alert('Password weak');
+                } else {
+                    alert(errorMessage);
+                }
+                console.log(error);
+            })
+
+        });
+
+
+        $("#googlebtn").click(function () {
             firebase.auth().signInWithRedirect(provider);
             firebase.auth().getRedirectResult().then(function (result) {
                 if (result.credential) {
@@ -174,7 +246,7 @@ document.addEventListener('init', function (event) {
     }
     if (page.id === 'menuPage') {
         console.log("menuPage");
-
+        
         db.collection("reccomment").where("id", "==", getMenuId())
             .get()
             .then(function (querySnapshot) {
@@ -190,30 +262,30 @@ document.addEventListener('init', function (event) {
                     setMenu(menus);
                 });
 
-                var menus=getMenu();
+                var menus = getMenu();
                 var types = [];
-            for (let index = 0; index < menus.length; index++) {
-                var menu = menus[index];
-                var type = menu.type;
-                var item = `<div style="font-weight: bold;font-size: 20px;color:black;margin-top:8px;margin-bottom: 8px;" >${menu.type}</div>
+                for (let index = 0; index < menus.length; index++) {
+                    var menu = menus[index];
+                    var type = menu.type;
+                    var item = `<div style="font-weight: bold;font-size: 20px;color:black;margin-top:8px;margin-bottom: 8px;" >${menu.type}</div>
                     <ons-col id="${menu.type}" style="font-weight: bold; font-size: 10px;">
                     </ons-col>`
-                if($('#textMenu').text()===""){
-                    $('#textMenu').append(item);
-                }else{
-                    var typeInID=$('#textMenu').text();  
-                    if(type===types[index-1]){
-                    }else{
+                    if ($('#textMenu').text() === "") {
                         $('#textMenu').append(item);
+                    } else {
+                        var typeInID = $('#textMenu').text();
+                        if (type === types[index - 1]) {
+                        } else {
+                            $('#textMenu').append(item);
+                        }
                     }
+                    types[index] = type;
                 }
-                types[index] = type;  
-            }
-            for (let index = 0; index < menus.length; index++) {
-                var menu = menus[index];
-                var type = menu.type;
-                console.log(type);
-                var item =`<ons-row style="margin-bottom:4px; ">
+                for (let index = 0; index < menus.length; index++) {
+                    var menu = menus[index];
+                    var type = menu.type;
+                    console.log(type);
+                    var item = `<ons-row style="margin-bottom:4px; ">
                    <label style="width: 75%; padding-top:10px; font-size:12px; padding-top:5px; opacity: 0.7;">
                     ${menu.name}
                     </label>
@@ -222,11 +294,11 @@ document.addEventListener('init', function (event) {
                      </label>
                     <div onclick="setPrice(${menu.price})" style=" background-color: purple;font-size:20px;color:white;margin-left: 4px;padding-left: 5px;padding-right: 5px;"> + </div>
                     </ons-row>`
-                $('#'+type).append(item);
-                    
-            }
+                    $('#' + type).append(item);
+
+                }
             })
-            
+
 
         $("#backhomebtn").click(function () {
             $("#content")[0].load("home.html");
@@ -238,7 +310,20 @@ document.addEventListener('init', function (event) {
     }
     if (page.id === 'regisPage') {
         $("#register").click(function () {
-            
+            var Email = document.getElementById('email').value;
+            var Password = document.getElementById('password').value;
+            firebase.auth().createUserWithEmailAndPassword(Email, Password).then(function () {
+                $("#content")[0].load("home.html");
+            }).catch(function (error) {
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                if (errorCode === 'auth/weak-password') {
+                    alert('Password weak');
+                } else {
+                    alert(errorMessage);
+                }
+                console.log(error);
+            })
         });
 
 
