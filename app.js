@@ -177,6 +177,11 @@ document.addEventListener('init', function (event) {
                 });
             });
 
+        $("#seeallbtn").click(function () {
+             setType("")
+             $("#content")[0].load("list.html");
+         });
+
     }
 
     if (page.id === 'listPage') {
@@ -370,7 +375,14 @@ document.addEventListener('init', function (event) {
         });
 
         $("#orderbtn").click(function () {
+            if(order.length==0){
+                ons.notification.alert({
+                    message: 'What can I get for you?'
+                });
+            }else{
+                
             $("#content")[0].load("order.html");
+            }
         });
     }
     if (page.id === 'regisPage') {
@@ -420,6 +432,13 @@ document.addEventListener('init', function (event) {
 
     }
     $("#pay").click(function () {
+        order = []
+        price = 0
+        localStorage.clear();
+        ons.notification.alert("Enjoy your meal")
+        $("#content")[0].load("home.html");
+    });
+    $("#cast").click(function () {
         order = []
         price = 0
         localStorage.clear();
