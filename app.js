@@ -19,10 +19,10 @@ var click = 0;
 var type = "";
 var menuid;
 var menu;
-
+var order = [];
 firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
-        
+
         var email = user.email;
         console.log("welcom " + email);
         $('#login').hide();
@@ -30,14 +30,14 @@ firebase.auth().onAuthStateChanged(function (user) {
         $('#logout').show();
 
     } else {
-        
+
 
         $('#login').show();
         $('#regis').show();
         $('#logout').hide();
     }
-        
-    
+
+
 });
 var setType = function (input) {
     type = input
@@ -53,22 +53,44 @@ var setMenuID = function (refId) {
 var getMenuId = function () {
     return menuId;
 }
-var setPrice = function (Price) {
+function setOrder(MenuID, menuName, Price) {
+    var nameRes = localStorage.getItem("nameRes");
+    console.log(menuName);
+    console.log(nameRes);
+    console.log(Price);
     var user = firebase.auth().currentUser;
 
     if (user) {
-        
         price = price + Price;
         var setprice = `${price}`;
-        click++;
-        console.log(click);
         $('#Price').empty();
         $('#Price').append(setprice);
+        var addvalue = false
+        if (order.length === 0) {
+            console.log("empty");
+            order.push([menuName, Price, 1]);
+        } else {
+            order.forEach((item, index) => {
+                if (item[0] == menuName) {
+                    item[2]++;
+                    addvalue = true;
+                }
+                if (order.length - 1 == index) {
+                }
+            })
+            console.log("Add value on else ",addvalue);
+            if(addvalue==false){
+                order.push([menuName, Price, 1]);
+            }
+            
+        }
+        console.log(order);
+
     } else {
         alert("Please login");
         $("#content")[0].load("login.html");
     }
-    
+
 }
 var setMenu = function (menus) {
     menu = menus;
@@ -88,7 +110,7 @@ var signout = function () {
 
 document.addEventListener('init', function (event) {
     var page = event.target;
-    console.log("event id:",page.id);
+    console.log("event id:", page.id);
 
     if (page.id === 'homePage') {
 
@@ -217,19 +239,19 @@ document.addEventListener('init', function (event) {
         $("#signinbtn").click(function () {
             var Email = document.getElementById('email').value;
             var Password = document.getElementById('pass').value;
-            firebase.auth().signInWithEmailAndPassword(Email, Password).then(function (){
+            firebase.auth().signInWithEmailAndPassword(Email, Password).then(function () {
                 $("#content")[0].load("home.html");
             })
-            .catch(function (error) {
-                var errorCode = error.code;
-                var errorMessage = error.message;
-                if (errorCode === 'auth/weak-password') {
-                    alert('Password weak');
-                } else {
-                    alert(errorMessage);
-                }
-                console.log(error);
-            })
+                .catch(function (error) {
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    if (errorCode === 'auth/weak-password') {
+                        alert('Password weak');
+                    } else {
+                        alert(errorMessage);
+                    }
+                    console.log(error);
+                })
 
         });
 
@@ -255,11 +277,13 @@ document.addEventListener('init', function (event) {
     }
     if (page.id === 'menuPage') {
 
-        
+
         db.collection("reccomment").where("id", "==", getMenuId())
             .get()
             .then(function (querySnapshot) {
                 querySnapshot.forEach(function (doc) {
+                    localStorage.setItem("nameRes", doc.data().name);
+                    localStorage.setItem("resPic", doc.data().picture);
                     var pictureMenu = `<div
                         style="background-size: 100%; background-repeat: no-repeat; width: 100%;height: 150px; background-image: url('${doc.data().picture}'); margin-bottom:15px;">
                     </div>`;
@@ -290,18 +314,18 @@ document.addEventListener('init', function (event) {
                     }
                     types[index] = type;
                 }
+
                 for (let index = 0; index < menus.length; index++) {
+
                     var menu = menus[index];
                     var type = menu.type;
+                    var menuID = `menu${[index]}`
+                    console.log(menuID);
                     console.log(type);
-                    var item = `<ons-row style="margin-bottom:4px; ">
-                   <label style="width: 75%; padding-top:10px; font-size:12px; padding-top:5px; opacity: 0.7;">
-                    ${menu.name}
-                    </label>
-                    <label style="width: 12%; padding-top :10px; font-size:12px; padding-top:5px; background-color:orange; padding-left: 9px; width:32px; color:white; border-radius: 30px;">
-                     $${menu.price}
-                     </label>
-                    <div onclick="setPrice(${menu.price})" style=" background-color: purple;font-size:20px;color:white;margin-left: 4px;padding-left: 5px;padding-right: 5px;"> + </div>
+                    var item = `<ons-row style="margin-bottom:4px;">
+                   <label id="name${menuID}" style="width: 75%; padding-top:10px; font-size:12px; padding-top:5px; opacity: 0.7;">${menu.name}</label>
+                    <label id="price${menuID}" style="width: 12%; padding-top :10px; font-size:12px; padding-top:5px; background-color:orange; padding-left: 9px; width:32px; color:white; border-radius: 30px;">${menu.price}</label>
+                    <div onclick="setOrder('${menuID}','${menu.name}',${menu.price})" style=" background-color: purple;font-size:20px;color:white;margin-left: 4px;padding-left: 5px;padding-right: 5px;"> + </div>
                     </ons-row>`
                     $('#' + type).append(item);
 
