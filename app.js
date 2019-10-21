@@ -19,6 +19,8 @@ var click = 0;
 var type = "";
 var menuid;
 var menu;
+var types = [];
+var pics = [];
 var order = [];
 firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
@@ -53,7 +55,7 @@ var setMenuID = function (refId) {
 var getMenuId = function () {
     return menuId;
 }
-function setOrder( menuName, Price) {
+function setOrder(menuName, Price) {
     var nameRes = localStorage.getItem("nameRes");
     console.log(menuName);
     console.log(nameRes);
@@ -92,11 +94,24 @@ function setOrder( menuName, Price) {
     }
 
 }
+var typeCates;
+var picCates;
+var setNameCate = function (typeCate) {
+    types.push([typeCate]);
+}
+var setPicCate = function (picCate) {
+    pics.push([picCate]);
+}
+var getTypeCate = function () {
+    return types;
+}
+var getPicCate = function () {
+    return pics;
+}
 var setMenu = function (menus) {
     menu = menus;
 }
 var getMenu = function () {
-    console.log(menu);
     return menu;
 }
 var signout = function () {
@@ -106,7 +121,11 @@ var signout = function () {
         // An error happened.
     });
 }
-
+var selectCate = function (cate){
+    console.log(cate)
+    setType(cate)
+    $("#content")[0].load("list.html");
+}
 
 document.addEventListener('init', function (event) {
     var page = event.target;
@@ -130,38 +149,33 @@ document.addEventListener('init', function (event) {
                     <div style="text-align: center; font-size: 30px; padding-top:5px;margin-top: 75px; color: #fff; height: 46px;  background-color:black; opacity: 0.6;">
                     ${doc.data().name}</div></ons-carousel-item>`;
                     $('#carousel').append(item);
+
+                });
+            })
+
+
+
+            var i=0;
+        db.collection("category").get()
+            .then((querySnapshot) => {
+                $("#cateList").empty()
+                querySnapshot.forEach((doc) => {
+                    
+                  
+                       var item= `
+        <ons-card style=" margin-left:23px; width: 40%; height:auto;" onclick="selectCate('${doc.data().type}')" id="${doc.data().type}">
+           
+                <img src="${doc.data().pic}"
+                    style="width: 50%; margin-left: auto; margin-right: auto; display: block; ">
+                <div style="text-align: center; margin-top: 16px; color:purple; font-weight: bold;">${doc.data().type}</div>
+            
+        </ons-card>
+        `
+                        $('#cateList').append(item);
+        
+                   
                 });
             });
-
-        $("#noodle").click(function () {
-            setType("noodle")
-            console.log(type);
-            console.log("click");
-            $("#content")[0].load("list.html");
-        }); $("#burger").click(function () {
-            setType("burger")
-            console.log(type);
-            $("#content")[0].load("list.html");
-        }); $("#steak").click(function () {
-            setType("steak")
-            console.log(type);
-            $("#content")[0].load("list.html");
-        }); $("#sushi").click(function () {
-            setType("sushi")
-            console.log(type);
-            $("#content")[0].load("list.html");
-        }); $("#pizza").click(function () {
-            setType("pizaa")
-            console.log(type);
-            $("#content")[0].load("list.html");
-        }); $("#salad").click(function () {
-            setType("salad")
-            console.log(type);
-            $("#content")[0].load("list.html");
-        }); $("#seeallbtn").click(function () {
-            setType("")
-            $("#content")[0].load("list.html");
-        });
 
     }
 
@@ -210,7 +224,7 @@ document.addEventListener('init', function (event) {
             $('#list').empty();
             $("#content")[0].load("home.html");
         });
-        
+
     }
 
     if (page.id === 'toolsPage') {
@@ -284,7 +298,7 @@ document.addEventListener('init', function (event) {
         });
     }
     if (page.id === 'menuPage') {
-        
+
         $('#Price').append(price);
 
         db.collection("reccomment").where("id", "==", getMenuId())
@@ -340,12 +354,15 @@ document.addEventListener('init', function (event) {
 
         $("#backtolist").click(function () {
             if (order.length > 0) {
+                order = []
+                price = 0
+                localStorage.clear();
                 ons.notification.alert({
                     message: 'Cancle order !'
-                  });
-                $("#content")[0].load("list.html");
+                });
+                $("#content")[0].load("home.html");
             } else {
-                $("#content")[0].load("list.html");
+                $("#content")[0].load("home.html");
             }
 
 
@@ -368,7 +385,7 @@ document.addEventListener('init', function (event) {
                 var errorMessage = error.message;
                 if (errorCode === 'auth/weak-password') {
                     ons.notification.alert("Weak password")
-                    
+
                 } else {
                     alert(errorMessage);
                 }
