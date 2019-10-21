@@ -53,7 +53,7 @@ var setMenuID = function (refId) {
 var getMenuId = function () {
     return menuId;
 }
-function setOrder(MenuID, menuName, Price) {
+function setOrder( menuName, Price) {
     var nameRes = localStorage.getItem("nameRes");
     console.log(menuName);
     console.log(nameRes);
@@ -87,7 +87,7 @@ function setOrder(MenuID, menuName, Price) {
         console.log(order);
 
     } else {
-        alert("Please login");
+        ons.notification.alert("Please login")
         $("#content")[0].load("login.html");
     }
 
@@ -168,6 +168,8 @@ document.addEventListener('init', function (event) {
     if (page.id === 'listPage') {
 
         console.log(getType());
+        var listType = getType();
+        $('#categoryType').append(listType);
         if (getType() == "") {
             db.collection("reccomment").orderBy("rate", "desc")
                 .get()
@@ -208,6 +210,7 @@ document.addEventListener('init', function (event) {
             $('#list').empty();
             $("#content")[0].load("home.html");
         });
+        
     }
 
     if (page.id === 'toolsPage') {
@@ -240,13 +243,14 @@ document.addEventListener('init', function (event) {
             var Email = document.getElementById('email').value;
             var Password = document.getElementById('pass').value;
             firebase.auth().signInWithEmailAndPassword(Email, Password).then(function () {
+                ons.notification.alert("Login success")
                 $("#content")[0].load("home.html");
             })
                 .catch(function (error) {
                     var errorCode = error.code;
                     var errorMessage = error.message;
                     if (errorCode === 'auth/weak-password') {
-                        alert('Password weak');
+                        ons.notification.alert("Password weak")
                     } else {
                         alert(errorMessage);
                     }
@@ -270,13 +274,18 @@ document.addEventListener('init', function (event) {
                 var credential = error.credential;
             });
         });
-        $("#backhomebtn").click(function () {
+        $("#backbylogin").click(function () {
 
             $("#content")[0].load("home.html");
         });
+        $("#register").click(function () {
+
+            $("#content")[0].load("register.html");
+        });
     }
     if (page.id === 'menuPage') {
-
+        
+        $('#Price').append(price);
 
         db.collection("reccomment").where("id", "==", getMenuId())
             .get()
@@ -291,7 +300,6 @@ document.addEventListener('init', function (event) {
                     var NameRes = `${doc.data().name}`;
                     $('#NameRes').append(NameRes);
                     var menus = doc.data().menus
-                    console.log(menus);
                     setMenu(menus);
                 });
 
@@ -316,16 +324,12 @@ document.addEventListener('init', function (event) {
                 }
 
                 for (let index = 0; index < menus.length; index++) {
-
                     var menu = menus[index];
                     var type = menu.type;
-                    var menuID = `menu${[index]}`
-                    console.log(menuID);
-                    console.log(type);
                     var item = `<ons-row style="margin-bottom:4px;">
-                   <label id="name${menuID}" style="width: 75%; padding-top:10px; font-size:12px; padding-top:5px; opacity: 0.7;">${menu.name}</label>
-                    <label id="price${menuID}" style="width: 12%; padding-top :10px; font-size:12px; padding-top:5px; background-color:orange; padding-left: 9px; width:32px; color:white; border-radius: 30px;">${menu.price}</label>
-                    <div onclick="setOrder('${menuID}','${menu.name}',${menu.price})" style=" background-color: purple;font-size:20px;color:white;margin-left: 4px;padding-left: 5px;padding-right: 5px;"> + </div>
+                   <label id="name" style="width: 75%; padding-top:10px; font-size:12px; padding-top:5px; opacity: 0.7;">${menu.name}</label>
+                    <label id="price" style="width: 12%; padding-top :10px; font-size:12px; padding-top:5px; background-color:orange; padding-left: 9px; width:32px; color:white; border-radius: 30px;">${menu.price}</label>
+                    <div onclick="setOrder('${menu.name}',${menu.price})" style=" background-color: purple;font-size:20px;color:white;margin-left: 4px;padding-left: 5px;padding-right: 5px;"> + </div>
                     </ons-row>`
                     $('#' + type).append(item);
 
@@ -334,15 +338,12 @@ document.addEventListener('init', function (event) {
             })
 
 
-        $("#backhomebtn").click(function () {
+        $("#backtolist").click(function () {
             if (order.length > 0) {
-                ons.notification.confirm({
-                    message: 'Are you ready?',
-                    callback: function(answer) {
-                        $("#content")[0].load("list.html"); 
-                    }
+                ons.notification.alert({
+                    message: 'Cancle order !'
                   });
-
+                $("#content")[0].load("list.html");
             } else {
                 $("#content")[0].load("list.html");
             }
@@ -360,12 +361,14 @@ document.addEventListener('init', function (event) {
             var Email = document.getElementById('email').value;
             var Password = document.getElementById('password').value;
             firebase.auth().createUserWithEmailAndPassword(Email, Password).then(function () {
+                ons.notification.alert("Register success")
                 $("#content")[0].load("home.html");
             }).catch(function (error) {
                 var errorCode = error.code;
                 var errorMessage = error.message;
                 if (errorCode === 'auth/weak-password') {
-                    alert('Password weak');
+                    ons.notification.alert("Weak password")
+                    
                 } else {
                     alert(errorMessage);
                 }
@@ -381,7 +384,6 @@ document.addEventListener('init', function (event) {
     if (page.id === 'orderPage') {
         var nameRes = localStorage.getItem("nameRes");
         var Pic = localStorage.getItem("resPic");
-        console.log(nameRes);
 
         order.forEach((item, index) => {
             var price = item[1] * item[2]
@@ -404,8 +406,10 @@ document.addEventListener('init', function (event) {
         order = []
         price = 0
         localStorage.clear();
+        ons.notification.alert("Enjoy your meal")
         $("#content")[0].load("home.html");
-        console.log(order);
     });
-
+    $("#backhomebtn").click(function () {
+        $("#content")[0].load("menu.html");
+    });
 })

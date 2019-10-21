@@ -9,13 +9,12 @@
     <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
 
     <style>
-        .page__background {
-            background: url('img/bg.jpg');
+        #homePage .page__background {
+            background-color: rgb(211, 211, 211);
             background-repeat: no-repeat;
             opacity: 0.7;
         }
         
-
         .collapsible {
             background-color: #eee;
             color: #444;
@@ -74,7 +73,7 @@
 
     <!-- Second navigation component: Splitter. This will disappear if the first component changes its content. -->
     <template id="splitter.html">
-        <ons-page>
+        <ons-page >
             <ons-splitter id="mySplitter">
                 <ons-splitter-side id="sidemenu" page="tools.html" width="300px;" swipeable width="250px" collapse
                     swipe-target-width="50px">
