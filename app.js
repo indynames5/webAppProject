@@ -48,7 +48,6 @@ var getType = function () {
     return type
 }
 var setMenuID = function (refId) {
-    console.log(refId + " Clicked!");
     menuId = refId;
     $("#content")[0].load("menu.html");
 }
@@ -57,9 +56,6 @@ var getMenuId = function () {
 }
 function setOrder(menuName, Price) {
     var nameRes = localStorage.getItem("nameRes");
-    console.log(menuName);
-    console.log(nameRes);
-    console.log(Price);
     var user = firebase.auth().currentUser;
 
     if (user) {
@@ -69,7 +65,6 @@ function setOrder(menuName, Price) {
         $('#Price').append(setprice);
         var addvalue = false
         if (order.length === 0) {
-            console.log("empty");
             order.push([menuName, Price, 1]);
         } else {
             order.forEach((item, index) => {
@@ -80,13 +75,11 @@ function setOrder(menuName, Price) {
                 if (order.length - 1 == index) {
                 }
             })
-            console.log("Add value on else ", addvalue);
             if (addvalue == false) {
                 order.push([menuName, Price, 1]);
             }
 
         }
-        console.log(order);
 
     } else {
         ons.notification.alert("Please login")
@@ -122,14 +115,12 @@ var signout = function () {
     });
 }
 var selectCate = function (cate){
-    console.log(cate)
     setType(cate)
     $("#content")[0].load("list.html");
 }
 
 document.addEventListener('init', function (event) {
     var page = event.target;
-    console.log("event id:", page.id);
 
     if (page.id === 'homePage') {
 
@@ -186,7 +177,6 @@ document.addEventListener('init', function (event) {
 
     if (page.id === 'listPage') {
 
-        console.log(getType());
         var listType = getType();
         $('#categoryType').append(listType);
         if (getType() == "") {
