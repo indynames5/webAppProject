@@ -78,11 +78,11 @@ function setOrder(MenuID, menuName, Price) {
                 if (order.length - 1 == index) {
                 }
             })
-            console.log("Add value on else ",addvalue);
-            if(addvalue==false){
+            console.log("Add value on else ", addvalue);
+            if (addvalue == false) {
                 order.push([menuName, Price, 1]);
             }
-            
+
         }
         console.log(order);
 
@@ -330,15 +330,29 @@ document.addEventListener('init', function (event) {
                     $('#' + type).append(item);
 
                 }
+
             })
 
 
         $("#backhomebtn").click(function () {
-            $("#content")[0].load("home.html");
+            if (order.length > 0) {
+                ons.notification.confirm({
+                    message: 'Are you ready?',
+                    callback: function(answer) {
+                        $("#content")[0].load("list.html"); 
+                    }
+                  });
+
+            } else {
+                $("#content")[0].load("list.html");
+            }
+
+
+
         });
 
         $("#orderbtn").click(function () {
-            $("#content")[0].load("confirm.html");
+            $("#content")[0].load("order.html");
         });
     }
     if (page.id === 'regisPage') {
@@ -364,5 +378,34 @@ document.addEventListener('init', function (event) {
             $("#content")[0].load("home.html");
         });
     }
+    if (page.id === 'orderPage') {
+        var nameRes = localStorage.getItem("nameRes");
+        var Pic = localStorage.getItem("resPic");
+        console.log(nameRes);
+
+        order.forEach((item, index) => {
+            var price = item[1] * item[2]
+
+            var item = `<ons-row style="margin-top: 15px; font-weight: bold; color: black;"><label style="width: 20%"> ${item[2]}</label>
+        <label style="width: 60%">${item[0]}</label>
+        <label style="width: 20%"><center>${price}</center></label>
+        </ons-row>`
+            $('#orderList').append(item);
+        })
+        $('#allPrice').append(price);
+        $('#Head').append(nameRes);
+        var item = `<div
+        style="background-size: 100%; background-repeat: no-repeat; width: 100%;height: 150px; background-image: url('${Pic}'); margin-bottom:15px;">
+        </div>`;
+        $('#Pic').append(item);
+
+    }
+    $("#pay").click(function () {
+        order = []
+        price = 0
+        localStorage.clear();
+        $("#content")[0].load("home.html");
+        console.log(order);
+    });
 
 })
