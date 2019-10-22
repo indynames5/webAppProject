@@ -396,7 +396,7 @@ document.addEventListener('init', function (event) {
         });
 
 
-        $("#backhomebtn").click(function () {
+        $("#backFormRegis").click(function () {
             $("#content")[0].load("home.html");
         });
     }
